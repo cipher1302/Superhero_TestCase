@@ -13,3 +13,10 @@ export const updateHeroService = async (instance,payload)=>{
 export const deleteHeroService = async (instance)=>{
     await instance.destroy()
 }
+
+export const getHeroDetailsService = async (instance) =>{
+   const {id,nickname,real_name,origin_description,superpowers,catch_phrase,images} = instance
+   return{
+    id,nickname,real_name,origin_description,superpowers,catch_phrase,images
+   }
+}

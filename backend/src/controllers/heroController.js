@@ -1,4 +1,4 @@
-import { createHeroService,updateHeroService,deleteHeroService } from "../services/heroService.js"
+import { createHeroService,updateHeroService,deleteHeroService,getHeroDetailsService } from "../services/heroService.js"
 
 
 
@@ -39,6 +39,21 @@ export const deleteHeroController = async (req,res,next)=>{
       
       await deleteHeroService(req.instance)
       return res.status(204).send()
+
+   } catch (error) {
+      next(error)
+   }
+}
+
+export const getHeroDetailsController = async (req,res,next)=>{
+   try {
+      
+      const answer = await getHeroDetailsService(req.instance)
+      return res.status(200).json({
+         message:"More about this hero",
+         data:answer
+      })
+     
 
    } catch (error) {
       next(error)
