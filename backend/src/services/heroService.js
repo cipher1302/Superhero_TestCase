@@ -1,4 +1,5 @@
 import {Superhero} from '../db/models/SuperheroModel.js'
+import paginate from '../utils/paginationUtil.js'
 
 export const createHeroService = async (payload)=>{
     const hero = await Superhero.create(payload)
@@ -21,7 +22,7 @@ export const getHeroDetailsService = async (instance) =>{
    }
 }
 
-export const getAllHeroesService = async ()=>{
-    const heroes = await Superhero.findAll()
+export const getAllHeroesService = async ({page,limit})=>{
+    const heroes = await paginate(Superhero,page,limit)
     return heroes 
 }

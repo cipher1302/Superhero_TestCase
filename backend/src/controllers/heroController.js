@@ -62,11 +62,15 @@ export const getHeroDetailsController = async (req,res,next)=>{
 
 export const getAllHeroesController = async (req,res,next)=>{
    try {
+
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+
       
-      const answer = await getAllHeroesService()
+      const answer = await getAllHeroesService({page,limit})
       return  res.status(200).json({
          message:"List of all your heroes",
-         data:answer
+         response:answer
 
       })
 
