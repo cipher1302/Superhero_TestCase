@@ -33,7 +33,7 @@ export async function databaseInit(){
         await sequelize.authenticate()
         console.log("✅ Connection to application database successful.");
 
-        await sequelize.sync({"force":true})
+        await sequelize.sync({alter: true })
         console.log("✅ Tables synchronized successfully.");
         console.log("✅ Tables synchronized successfully. Models:", Object.keys(sequelize.models));
     }

@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
 
-export const validateBody = (model) => (req,res,next) => {
+export const validateBodyCreate = (model) => (req,res,next) => {
 
     const missingFields = []
     try {
