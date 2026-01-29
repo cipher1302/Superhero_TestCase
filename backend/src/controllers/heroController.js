@@ -1,15 +1,18 @@
-import { testSevice } from "../services/heroService.js"
+import { createHeroService } from "../services/heroService.js"
 
 
-export const testController = async (req,res)=>{
-    try {
-        const answer = await testSevice()
-        res.status(200).json({
-            status:200,
-            data: answer
-        })
-    } catch (error) {
+
+export const createHeroController = async (req,res,next)=>{
+   try {
+     const answer = await createHeroService(req.body)
+
+     res.status(201).json({
+        status:201,
+        message:"Hero successfully created",
+        data: answer
+     })
+    
+   } catch (error) {
         next(error)
-    }
-
+   }
 }

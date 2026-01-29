@@ -1,6 +1,6 @@
+import {Superhero} from '../db/models/SuperheroModel.js'
 
-export const testSevice = async ()=>{
-    return {
-        'message':"Everything is working"
-    }
+export const createHeroService = async (payload)=>{
+    const hero = await Superhero.create(payload)
+    return hero;
 }

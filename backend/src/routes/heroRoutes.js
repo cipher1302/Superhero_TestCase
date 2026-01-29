@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { testController } from "../controllers/heroController.js";
+import {createHeroController} from '../controllers/heroController.js'
+import { validateBody } from "../middlewares/validateBody.js";
+import { Superhero } from "../db/models/SuperheroModel.js";
 
 const router = Router()
 
-router.get('/test',testController)
+router.post('/create',validateBody(Superhero),createHeroController)
 
 
 export default router
