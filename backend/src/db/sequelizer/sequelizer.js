@@ -17,7 +17,7 @@ export const sequelize = new Sequelize({
 
 export async function databaseInit(){
     try{
-        // Створюємо звичайну базу постгреса для того, щоб в ній вже створити нашу базу через квері
+        // Function for authentication basic psql and create our base
         await serverSequelize.authenticate()
         console.log("✅ Connection to database server successful.");
         await serverSequelize.query(`CREATE DATABASE "${baseConfig.database}"`)

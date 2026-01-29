@@ -2,12 +2,18 @@ import express from 'express'
 import { databaseInit } from './db/sequelizer/sequelizer.js';
 import { Superhero } from './db/models/SuperheroModel.js';
 import { getEnvVar } from './utils/getEnvVar.js';
-
+import cors from 'cors'
+import heroRoutes from './routes/heroRoutes.js'
+import { errorHandler } from './middlewares/errorHandler.js';
+import { notFoundRouteHandler } from './middlewares/notFoundRouteHandler.js';
 
 const app = express()
 
-const PORT = Number(getEnvVar('DB_PORT','5432'));
 
+const PORT = Number(getEnvVar('PORT',3000));
+
+app.use(express.json());
+app.use(cors());
 
 async function startServer (req, res){
     try {
@@ -21,6 +27,14 @@ async function startServer (req, res){
     }
 };
 
+// Routes
+
+app.use('/api/heroes',heroRoutes)
+
+
+// Middleware handlers
+app.use(errorHandler)
+app.use(notFoundRouteHandler)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
