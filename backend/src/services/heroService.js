@@ -9,3 +9,7 @@ export const updateHeroService = async (instance,payload)=>{
     await instance.update(payload)
     return instance
 }
+
+export const deleteHeroService = async (instance)=>{
+    await instance.destroy()
+}

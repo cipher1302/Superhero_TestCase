@@ -1,4 +1,4 @@
-import { createHeroService,updateHeroService } from "../services/heroService.js"
+import { createHeroService,updateHeroService,deleteHeroService } from "../services/heroService.js"
 
 
 
@@ -28,9 +28,17 @@ export const updateHeroController = async (req,res,next)=>{
 
       })
 
+   } catch (error) {
+      next(error)
+   }
+}
 
 
-
+export const deleteHeroController = async (req,res,next)=>{
+   try {
+      
+      await deleteHeroService(req.instance)
+      return res.status(204).send()
 
    } catch (error) {
       next(error)
