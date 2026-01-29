@@ -20,3 +20,8 @@ export const getHeroDetailsService = async (instance) =>{
     id,nickname,real_name,origin_description,superpowers,catch_phrase,images
    }
 }
+
+export const getAllHeroesService = async ()=>{
+    const heroes = await Superhero.findAll()
+    return heroes 
+}

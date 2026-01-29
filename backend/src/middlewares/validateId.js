@@ -2,8 +2,8 @@ import createHttpError from 'http-errors';
 import { validate as isUuid } from 'uuid';
 
 export const validateId = (model) => async (req,res,next) =>{
-    const id = req.params.id.trim();
-    console.log('Id from parametes', JSON.stringify(req.params.id))
+    const {id} = req.params;
+    
      if (!isUuid(id)) {
     return next(createHttpError(400, "Invalid UUID"));
   }

@@ -10,6 +10,8 @@ import { notFoundRouteHandler } from './middlewares/notFoundRouteHandler.js';
 const app = express()
 
 
+
+
 const PORT = Number(getEnvVar('PORT',3000));
 
 app.use(express.json());
@@ -32,9 +34,11 @@ async function startServer (req, res){
 app.use('/api/heroes',heroRoutes)
 
 
+
 // Middleware handlers
 app.use(errorHandler)
 app.use(notFoundRouteHandler)
+
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
