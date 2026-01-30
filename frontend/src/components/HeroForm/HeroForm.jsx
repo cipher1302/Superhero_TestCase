@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useId } from 'react'
 import * as Yup from 'yup'
@@ -26,63 +26,91 @@ const HeroSchema = Yup.object().shape(
     .min(2, 'Must be at least 2 characters')
     .max(30, 'Must be at most 30 characters')
     .nullable(),
-
-//   images: Yup.array()
-//     .of(Yup.string())
-//     .nullable()
 }
 
 )
 
 const HeroForm = () => {
+    const fileInputRef = useRef(null)
 
-    const fieldId = useId()
 
-
-    const handleSumbit = (values,helpers)=>{
-        console.log(values)
-        helpers.resetForm()
+    const handleSubmit = (values,helpers)=>{
+        const formData = new FormData()
+        formData.append('nickname', values.nickname)
+        formData.append('real_name', values.real_name)
+        formData.append('origin_description', values.origin_description)
+        formData.append('superpowers', values.superpowers)
+        formData.append('catch_phrase', values.catch_phrase)
+         if (values.images && values.images.length > 0) {
+      Array.from(values.images).forEach(file => {
+        formData.append('images', file)
+      })
     }
+        
 
-  return (
-  <Formik initialValues={{
-    nickname: "Classified",
-    real_name: "Classified",
-    origin: "Classified",
-    powers: "Classified",
-    catch_phrase:"Classified",
-    // images:"Classified",
-  }} onSubmit={handleSumbit} validationSchema={HeroSchema}>
-    <Form action="">
-        <label htmlFor="">Your Superhero's Nickname</label>
-        <Field type="text" name="nickname" />
-        <ErrorMessage name="nickname" />
+         fetch('http://localhost:3000/api/heroes/create', {
+            method: 'POST',
+            body: formData,
+          })
+          .then(res => res.json())
+          .then(data => {
+            console.log('Server response:', data)
+            helpers.resetForm()
+            if (fileInputRef.current) fileInputRef.current.value = null
+          })
+          .catch(err => console.error('Error:', err))
+      }
+        
 
-        <label htmlFor="">Your Superhero's Real Name</label>
-        <Field type="text" name="real_name" />
-        <ErrorMessage name="real_name" />
+   return (
+    <Formik
+      initialValues={{
+        nickname: "Classified",
+        real_name: "Classified",
+        origin_description: "Classified",
+        superpowers: "Classified",
+        catch_phrase: "Classified",
+        images: [] 
+      }}
+      validationSchema={HeroSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ setFieldValue }) => (
+        <Form>
+          <label>Nickname</label>
+          <Field type="text" name="nickname" />
+          <ErrorMessage name="nickname" />
 
-        <label htmlFor="">Your Superhero's Origin</label>
-        <Field type="text" name="origin" />
-        <ErrorMessage name="origin" />
+          <label>Real Name</label>
+          <Field type="text" name="real_name" />
+          <ErrorMessage name="real_name" />
 
-        <label htmlFor="">Your Superhero's Powers</label>
-        <Field type="text" name="powers" />
-        <ErrorMessage name="powers" />
+          <label>Origin</label>
+          <Field type="text" name="origin_description" />
+          <ErrorMessage name="origin_description" />
 
-        <label htmlFor="">What is your superhero's catchphrase?</label>
-        <Field type="text" name="catch_phrase" />
-        <ErrorMessage name="catch_phrase" />
+          <label>Powers</label>
+          <Field type="text" name="superpowers" />
+          <ErrorMessage name="superpowers" />
 
-        {/* <label htmlFor="">Superhero Images</label>
-        <Field type="text" name="images" /> */}
+          <label>Catchphrase</label>
+          <Field type="text" name="catch_phrase" />
+          <ErrorMessage name="catch_phrase" />
 
+          <label>Upload Images</label>
+          <input
+            type="file"
+            multiple
+            ref={fileInputRef}
+            onChange={(e) => setFieldValue('images', e.currentTarget.files)}
+          />
 
-
-        <button type="submit">Submit</button>
-    </Form>
-  </Formik>
+          <button type="submit">Create Hero</button>
+        </Form>
+      )}
+    </Formik>
   )
 }
+  
 
 export default HeroForm
