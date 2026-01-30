@@ -3,11 +3,13 @@ import { databaseInit } from './db/sequelizer/sequelizer.js';
 import { Superhero } from './db/models/SuperheroModel.js';
 import { getEnvVar } from './utils/getEnvVar.js';
 import cors from 'cors'
+import path from 'path';
 import heroRoutes from './routes/heroRoutes.js'
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundRouteHandler } from './middlewares/notFoundRouteHandler.js';
 
 const app = express()
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 
 

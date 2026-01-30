@@ -4,7 +4,16 @@ import { createHeroService,updateHeroService,deleteHeroService,getHeroDetailsSer
 
 export const createHeroController = async (req,res,next)=>{
    try {
-     const answer = await createHeroService(req.body)
+
+      const filePath = req.files?.map(file=> `/uploads/${file.filename}`) || null;
+
+      const payload = {
+         ...req.body,
+         images:filePath
+      }
+
+
+     const answer = await createHeroService(payload)
 
      res.status(201).json({
         status:201,
