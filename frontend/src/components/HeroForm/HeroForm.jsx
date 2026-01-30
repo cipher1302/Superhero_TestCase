@@ -1,6 +1,6 @@
 import React, {useRef} from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
-import { useId } from 'react'
+import { useId, useState } from 'react'
 import * as Yup from 'yup'
 import css from '../HeroForm/HeroForm.module.css'
 
@@ -34,6 +34,7 @@ const HeroForm = () => {
     const fileInputRef = useRef(null)
 
 
+
     const handleSubmit = (values,helpers)=>{
         const formData = new FormData()
         formData.append('nickname', values.nickname)
@@ -54,11 +55,29 @@ const HeroForm = () => {
           .then(data => {
             console.log('Server response:', data)
             helpers.resetForm()
+            setSelectedImages([])
             if (fileInputRef.current) fileInputRef.current.value = null
           })
           .catch(err => console.error('Error:', err))
       }
         
+
+    const [selectedImages, setSelectedImages] = useState([])
+
+   
+  const handleImageChange = (e, setFieldValue) => {
+  const files = Array.from(e.target.files) 
+  const updatedImages = [...selectedImages, ...files]
+
+  setSelectedImages(updatedImages)        
+  setFieldValue('images', updatedImages)  
+}
+
+const removeImage = (index, setFieldValue) => {
+  const updated = selectedImages.filter((_, i) => i !== index)
+  setSelectedImages(updated)                  
+  setFieldValue('images', updated)          
+}
 
    return (
     <Formik
@@ -100,9 +119,16 @@ const HeroForm = () => {
             type="file"
             multiple
             ref={fileInputRef}
-            onChange={(e) => setFieldValue('images', e.currentTarget.files)}
+            onChange={(e) => handleImageChange(e, setFieldValue)}
           />
-
+          <div className={css.preview_container}>
+          {selectedImages.map((file, index) => (
+  <div key={index} className={css.preview_item}>
+    <span>{file.name}</span> 
+    <button type="button" onClick={() => removeImage(index, setFieldValue)}>✕</button>
+  </div>
+))}
+    </div>
           <button type="submit">Create Hero</button>
         </Form>
       )}

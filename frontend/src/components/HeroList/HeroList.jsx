@@ -6,7 +6,7 @@ import css from '../HeroList/HeroList.module.css'
 const HeroList = () => {
 
     const [heroes, setHeroes] = useState([])
-    const [page,setPage] = useState(3)
+    const [page,setPage] = useState(1)
     const [totalPages,setTotalPages] = useState(1)
 
     useEffect(()=>{

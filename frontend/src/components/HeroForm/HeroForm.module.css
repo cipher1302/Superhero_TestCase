@@ -54,3 +54,44 @@
 .hero_form button:hover {
   background-color: #45a049;
 }
+.preview_container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.preview_item {
+  position: relative;
+}
+
+.preview_item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.preview_item button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+}
+
