@@ -2,12 +2,12 @@ import React, {useRef} from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useId } from 'react'
 import * as Yup from 'yup'
-
+import css from '../HeroForm/HeroForm.module.css'
 
 const HeroSchema = Yup.object().shape(
   {
   nickname: Yup.string()
-    .min(1, 'Must be at least 1 character')
+    .min(2, 'Must be at least 2 character')
     .max(20, 'Must be at most 20 characters')
     .required('Nickname is required'),
 
@@ -45,9 +45,7 @@ const HeroForm = () => {
       Array.from(values.images).forEach(file => {
         formData.append('images', file)
       })
-    }
-        
-
+    } 
          fetch('http://localhost:3000/api/heroes/create', {
             method: 'POST',
             body: formData,
@@ -76,26 +74,26 @@ const HeroForm = () => {
       onSubmit={handleSubmit}
     >
       {({ setFieldValue }) => (
-        <Form>
+        <Form className={css.hero_form}>
           <label>Nickname</label>
           <Field type="text" name="nickname" />
-          <ErrorMessage name="nickname" />
+          <ErrorMessage name="nickname" component="div" className="error"/>
 
           <label>Real Name</label>
           <Field type="text" name="real_name" />
-          <ErrorMessage name="real_name" />
+          <ErrorMessage name="real_name" component="div" className="error" />
 
           <label>Origin</label>
           <Field type="text" name="origin_description" />
-          <ErrorMessage name="origin_description" />
+          <ErrorMessage name="origin_description" component="div" className="error"/>
 
           <label>Powers</label>
           <Field type="text" name="superpowers" />
-          <ErrorMessage name="superpowers" />
+          <ErrorMessage name="superpowers" component="div" className="error" />
 
           <label>Catchphrase</label>
           <Field type="text" name="catch_phrase" />
-          <ErrorMessage name="catch_phrase" />
+          <ErrorMessage name="catch_phrase" component="div" className="error" />
 
           <label>Upload Images</label>
           <input

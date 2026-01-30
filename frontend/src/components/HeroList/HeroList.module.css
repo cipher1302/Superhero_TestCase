@@ -1,0 +1,10 @@
+.hero_container{
+    display: flex;
+    align-items: center;
+}
+
+.hero_title{
+    text-align:  center;
+}
+
+
