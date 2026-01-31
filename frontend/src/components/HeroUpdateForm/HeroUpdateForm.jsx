@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
+
 const HeroSchema = Yup.object().shape({
   nickname: Yup.string().min(2).max(20).required('Nickname is required'),
   real_name: Yup.string().nullable(),
@@ -57,13 +58,6 @@ const HeroUpdateForm = () => {
 
 
   formData.append('keepImages', JSON.stringify(existingImages))
-
-  console.log("=== FRONT DEBUG ===")
-  console.log("selectedImages:", selectedImages)
-  console.log("existingImages:", existingImages)
-  for (let [key, value] of formData.entries()) {
-    console.log(key, value)
-  }
 
     fetch(`http://localhost:3000/api/heroes/update/${id}`, {
       method: 'PATCH',

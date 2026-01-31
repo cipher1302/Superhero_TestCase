@@ -4,6 +4,7 @@ import { useId, useState } from 'react'
 import * as Yup from 'yup'
 import css from '../HeroForm/HeroForm.module.css'
 
+
 const HeroSchema = Yup.object().shape(
   {
   nickname: Yup.string()
@@ -34,7 +35,6 @@ const HeroForm = () => {
     const fileInputRef = useRef(null)
 
 
-
     const handleSubmit = (values,helpers)=>{
         const formData = new FormData()
         formData.append('nickname', values.nickname)
@@ -57,6 +57,7 @@ const HeroForm = () => {
             helpers.resetForm()
             setSelectedImages([])
             if (fileInputRef.current) fileInputRef.current.value = null
+            window.location.reload()
           })
           .catch(err => console.error('Error:', err))
       }
