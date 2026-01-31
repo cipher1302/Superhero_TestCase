@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import css from './HeroDetails.module.css' // отдельный CSS-модуль
+import css from './HeroDetails.module.css' 
 import defaultHeroImage from '../../assets/user.png'
 
 const HeroDetails = () => {
