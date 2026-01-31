@@ -4,6 +4,8 @@ import css from '../HeroUpdateForm/HeroUpdateForm.module.css'
 import * as Yup from 'yup'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useNavigate } from 'react-router-dom'
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 
 const HeroSchema = Yup.object().shape({
@@ -69,9 +71,24 @@ const HeroUpdateForm = () => {
         helpers.resetForm()
         setSelectedImages([])
         if (fileInputRef.current) fileInputRef.current.value = null
-        navigate('/')
+        iziToast.success({
+              title: 'Done',
+              message: 'Hero updated successfully',
+              position: 'topRight',
+              timeout: 2000,
+            })
+              setTimeout(() => {
+                  navigate('/')
+                }, 2100)
+       
       })
-      .catch(err => console.error('Error:', err))
+        .catch(() => {
+              iziToast.error({
+                title: 'Error',
+                message: 'Error while creating a hero',
+                position: 'topRight',
+              })
+            })
   }
 
   const handleImageChange = (e, setFieldValue) => {

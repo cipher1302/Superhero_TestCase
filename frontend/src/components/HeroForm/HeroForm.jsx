@@ -3,6 +3,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { useId, useState } from 'react'
 import * as Yup from 'yup'
 import css from '../HeroForm/HeroForm.module.css'
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
 
 
 const HeroSchema = Yup.object().shape(
@@ -57,9 +60,26 @@ const HeroForm = () => {
             helpers.resetForm()
             setSelectedImages([])
             if (fileInputRef.current) fileInputRef.current.value = null
-            window.location.reload()
+          
+            iziToast.success({
+              title: 'Done',
+              message: 'Hero created successfully',
+              position: 'topRight',
+              timeout: 2000,
+            })
+
+             setTimeout(() => {
+                  window.location.reload()
+                }, 2100)
           })
-          .catch(err => console.error('Error:', err))
+          .catch(() => {
+              iziToast.error({
+                title: 'Error',
+                message: 'Error while creating a hero',
+                position: 'topRight',
+              })
+            })
+            
       }
         
 
