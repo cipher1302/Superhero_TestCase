@@ -18,9 +18,19 @@ const HeroList = () => {
                 const data = await resp.json()
                 console.log(data);
                 
-                setHeroes(prev=>[...data.response.data])
-                setTotalPages(data.response.totalPages)
 
+                // Duplicate problem because of the strict mode
+                // setHeroes(prev=>[...prev, ...data.response.data])
+
+                // Duplicate check 
+                setHeroes(prev => {
+                    const newHeroes = data.response.data.filter(
+                        h => !prev.some(existing => existing.id === h.id)
+                    )
+                    return [...prev, ...newHeroes]
+                    })
+
+                setTotalPages(data.response.totalPages)
             } catch (error) {
                 console.log(error);
             }
@@ -50,6 +60,15 @@ const HeroList = () => {
             <HeroCard key={hero.id} hero={hero} handleDelete={handleDelete}/>
         ))}
     </div>
+
+     {page < totalPages && (
+        <button
+          className={css.loadMoreBtn}
+          onClick={() => setPage(prev => prev + 1)}
+        >
+            Load More
+        </button>
+      )}
     </div>
    
 

@@ -1,6 +1,7 @@
 .hero_container{
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; 
 }
 
 .hero_title{
@@ -8,3 +9,24 @@
 }
 
 
+.loadMoreBtn {
+  display: block;
+  margin: 30px auto;
+  padding: 10px 25px;
+  font-size: 1rem;
+  background-color: #0077ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.loadMoreBtn:hover {
+  background-color: #005bb5;
+}
+
+.loadMoreBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
