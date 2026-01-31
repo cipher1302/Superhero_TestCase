@@ -64,3 +64,31 @@ It runs frontend on  http://localhost:5173
 Note:  You can test this application via Postman or using frontend server 
 
 
+# Backend routes for Postman test
+
+**GET ALL**
+<br>
+http://localhost:3000/api/heroes
+
+**GET ONE HERO**
+<br>
+http://localhost:3000/api/heroes/hero/:id
+
+**CREATE HERO**
+<br>
+http://localhost:3000/api/heroes/create
+
+**UPDATE HERO (PATCH)**
+<br>
+http://localhost:3000/api/heroes/update/:id
+
+**DELETE HERO**
+<br>
+http://localhost:3000/api/heroes/delete/:id
+
+
+
+
+
+
+
