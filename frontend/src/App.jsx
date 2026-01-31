@@ -1,16 +1,25 @@
 import { useState } from 'react'
 import HeroForm from './components/HeroForm/HeroForm.jsx'
 import HeroList from './components/HeroList/HeroList.jsx'
+import HeroDetails from './components/HeroDetails/HeroDetails.jsx'
+import { Routes, Route } from "react-router-dom"
 
 
 function App() {
 
-  return (
-    <>
-    <HeroForm/>
-    <HeroList/>
-    </>
+ return (
+    <Routes>
+      <Route path="/" element={
+        <>
+          <HeroForm />
+          <HeroList />
+        </>
+      } />
+
+      <Route path="/heroes/hero/:id" element={<HeroDetails />} />
+    </Routes>
   )
 }
+
 
 export default App

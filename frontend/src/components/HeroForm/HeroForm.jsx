@@ -129,7 +129,7 @@ const removeImage = (index, setFieldValue) => {
   </div>
 ))}
     </div>
-          <button type="submit">Create Hero</button>
+        <button type="submit">Create Hero</button>
         </Form>
       )}
     </Formik>
