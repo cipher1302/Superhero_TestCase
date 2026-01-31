@@ -10,7 +10,7 @@ const router = Router()
 
 router.get('/',getAllHeroesController);
 router.post('/create',upload.array("images",3),validateBodyCreate(Superhero),createHeroController)
-router.patch('/update/:id',validateId(Superhero),validateBodyPatch(Superhero),updateHeroController)
+router.patch('/update/:id',upload.array('images',3),validateId(Superhero),validateBodyPatch(Superhero),updateHeroController)
 router.delete('/delete/:id',validateId(Superhero),deleteHeroController)
 router.get('/hero/:id',validateId(Superhero),getHeroDetailsController)
 

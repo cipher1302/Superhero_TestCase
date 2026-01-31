@@ -29,7 +29,25 @@ export const createHeroController = async (req,res,next)=>{
 
 export const updateHeroController = async (req,res,next)=>{
    try {
-      const answer = await updateHeroService(req.instance, req.body)
+
+      const keepImages = req.body.keepImages
+      ? JSON.parse(req.body.keepImages)
+      : []
+
+
+      const newImages = req.files?.map(
+         file => `/uploads/${file.filename}`
+      ) || []
+
+      
+      const finalImages = [...keepImages, ...newImages]
+
+      const payload = {
+         ...req.body,
+         images: finalImages
+      }
+
+      const answer = await updateHeroService(req.instance, payload)
       res.status(200).json({
          status:200,
          message:"Successfully updated your hero",
