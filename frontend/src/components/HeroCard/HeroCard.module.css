@@ -60,7 +60,7 @@
 }
 
 .more_btn{
-   margin-top: 8px;
+  margin-top: 8px;
   padding: 6px 12px;
   background-color: #432222; 
   color: white;
@@ -71,4 +71,20 @@
 }
 .more_btn:hover{
   background-color: #7b4343;
+}
+
+.edit_btn{
+   margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #2e377b; 
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+
+}
+
+.edit_btn:hover{
+  background-color: #4f46e5;
 }

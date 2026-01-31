@@ -15,6 +15,9 @@ const HeroCard = ({hero, handleDelete}) => {
         <NavLink to={`/heroes/hero/${hero.id}`} className={css.more_btn}>
         Learn more
       </NavLink>
+      <NavLink to={`/heroes/update/${hero.id}`} className={css.edit_btn}>
+        Edit
+      </NavLink>
     </div>
   )
 }

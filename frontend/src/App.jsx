@@ -3,6 +3,7 @@ import HeroForm from './components/HeroForm/HeroForm.jsx'
 import HeroList from './components/HeroList/HeroList.jsx'
 import HeroDetails from './components/HeroDetails/HeroDetails.jsx'
 import { Routes, Route } from "react-router-dom"
+import HeroUpdateForm from './components/HeroUpdateForm/HeroUpdateForm.jsx'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       } />
 
       <Route path="/heroes/hero/:id" element={<HeroDetails />} />
+      <Route path="/heroes/update/:id" element={<HeroUpdateForm />} />
     </Routes>
   )
 }

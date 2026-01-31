@@ -1,0 +1,105 @@
+.status {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+
+/* HeroForm.css */
+
+.hero_form {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+}
+
+.hero_form label {
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.hero_form input[type="text"],
+.hero_form input[type="file"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+}
+
+.hero_form input[type="file"] {
+  padding: 5px;
+}
+
+.hero_form .error {
+  color: red;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.hero_form button {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: #3245a7;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.hero_form button:hover {
+  background-color: #4848d0;
+}
+.preview_container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.preview_item {
+  position: relative;
+}
+
+.preview_item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.preview_item button {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+}
+
