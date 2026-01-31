@@ -1,7 +1,7 @@
 ## TECHNOLOGY STACK
 <br>
 <a href="https://skillicons.dev">
-    <img width="200px" src="https://skillicons.dev/icons?i=nodejs,express,react,postgres,html,css" />
+    <img width="200px" src="https://skillicons.dev/icons?i=nodejs,express,react,postgres,js,html,css" />
   </a>
 
 # How to run project
