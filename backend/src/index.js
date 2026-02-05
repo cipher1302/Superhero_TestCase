@@ -11,9 +11,6 @@ import { notFoundRouteHandler } from './middlewares/notFoundRouteHandler.js';
 const app = express()
 app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
-
-
-
 const PORT = Number(getEnvVar('PORT',3000));
 
 app.use(express.json());
