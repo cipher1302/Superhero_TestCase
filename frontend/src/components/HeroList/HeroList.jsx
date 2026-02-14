@@ -17,31 +17,33 @@ const HeroList = () => {
                 )
                 const data = await resp.json()
                 console.log(data);
-                
 
                 // Duplicate problem because of the strict mode
                 // setHeroes(prev=>[...prev, ...data.response.data])
 
-                // Duplicate check 
-                setHeroes(prev => {
-                    const newHeroes = data.response.data.filter(
-                        h => !prev.some(existing => existing.id === h.id)
-                    )
-                    return [...prev, ...newHeroes]
-                    })
+            const { data: answer } = await resp.json(); 
+            const { rows: newHeroes, totalPages } = answer;
 
-                setTotalPages(data.response.totalPages)
+   
+            setHeroes(prev => {
+            const filteredHeroes = newHeroes.filter(
+                h => !prev.some(existing => existing.id === h.id)
+            );
+            return [...prev, ...filteredHeroes];
+            });
+
+            setTotalPages(totalPages);
+                
+                
             } catch (error) {
                 console.log(error);
             }
-            
-
        }
        loadListHeroes()
     },[page])
 
     const handleDelete = (id) =>{
-         fetch(`http://localhost:3000/api/heroes/delete/${id}`, {
+         fetch(`http://localhost:3000/api/heroes/${id}`, {
       method: 'DELETE',
     })
     .then(res=>{
