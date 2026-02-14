@@ -17,8 +17,8 @@ function App() {
         </>
       } />
 
-      <Route path="/heroes/hero/:id" element={<HeroDetails />} />
-      <Route path="/heroes/update/:id" element={<HeroUpdateForm />} />
+      <Route path="/heroes/:id" element={<HeroDetails />} />
+      <Route path="/heroes/:id" element={<HeroUpdateForm />} />
     </Routes>
   )
 }

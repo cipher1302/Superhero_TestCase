@@ -27,7 +27,7 @@ const HeroUpdateForm = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/heroes/hero/${id}`)
+    fetch(`http://localhost:3000/api/heroes/${id}`)
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch hero')
         return res.json()
@@ -61,7 +61,7 @@ const HeroUpdateForm = () => {
 
   formData.append('keepImages', JSON.stringify(existingImages))
 
-    fetch(`http://localhost:3000/api/heroes/update/${id}`, {
+    fetch(`http://localhost:3000/api/heroes/${id}`, {
       method: 'PATCH',
       body: formData,
     })

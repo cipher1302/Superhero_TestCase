@@ -9,39 +9,33 @@ const HeroList = () => {
     const [page,setPage] = useState(1)
     const [totalPages,setTotalPages] = useState(1)
 
-    useEffect(()=>{
-       const loadListHeroes = async ()=>{
-            try {
-                const resp = await fetch(
-                    `http://localhost:3000/api/heroes?page=${page}&limit=5`
-                )
-                const data = await resp.json()
-                console.log(data);
+    useEffect(() => {
+  const loadListHeroes = async () => {
+    try {
+      const resp = await fetch(`http://localhost:3000/api/heroes?page=${page}&limit=5`);
+      const data = await resp.json(); 
+      console.log(data); 
 
-                // Duplicate problem because of the strict mode
-                // setHeroes(prev=>[...prev, ...data.response.data])
+      const { data: newHeroes, totalPages } = data.data;
 
-            const { data: answer } = await resp.json(); 
-            const { rows: newHeroes, totalPages } = answer;
+      setHeroes(prev => {
+        const filteredHeroes = newHeroes.filter(
+          h => !prev.some(existing => existing.id === h.id)
+        );
+        return [...prev, ...filteredHeroes];
+      });
 
-   
-            setHeroes(prev => {
-            const filteredHeroes = newHeroes.filter(
-                h => !prev.some(existing => existing.id === h.id)
-            );
-            return [...prev, ...filteredHeroes];
-            });
+      setTotalPages(totalPages);
 
-            setTotalPages(totalPages);
-                
-                
-            } catch (error) {
-                console.log(error);
-            }
-       }
-       loadListHeroes()
-    },[page])
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  loadListHeroes();
+}, [page]);
+
+       
     const handleDelete = (id) =>{
          fetch(`http://localhost:3000/api/heroes/${id}`, {
       method: 'DELETE',
