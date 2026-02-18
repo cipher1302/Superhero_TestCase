@@ -2,38 +2,19 @@ import React, { useEffect } from 'react'
 import HeroCard from '../HeroCard/HeroCard.jsx'
 import { useState } from 'react'
 import css from '../HeroList/HeroList.module.css'
+import { useDispatch, useSelector } from "react-redux";
+import { fetchHeroes } from '../../redux/hero/operations.js';
 
 const HeroList = () => {
-
+     const dispatch = useDispatch()
     const [heroes, setHeroes] = useState([])
     const [page,setPage] = useState(1)
     const [totalPages,setTotalPages] = useState(1)
+    const heroState = useSelector((state)=>state.hero)
+   useEffect(()=>{
+      dispatch(fetchHeroes({page,limit:5}))
+   },[page,dispatch])
 
-    useEffect(() => {
-  const loadListHeroes = async () => {
-    try {
-      const resp = await fetch(`http://localhost:3000/api/heroes?page=${page}&limit=5`);
-      const data = await resp.json(); 
-      console.log(data); 
-
-      const { data: newHeroes, totalPages } = data.data;
-
-      setHeroes(prev => {
-        const filteredHeroes = newHeroes.filter(
-          h => !prev.some(existing => existing.id === h.id)
-        );
-        return [...prev, ...filteredHeroes];
-      });
-
-      setTotalPages(totalPages);
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  loadListHeroes();
-}, [page]);
 
        
     const handleDelete = (id) =>{
@@ -52,7 +33,7 @@ const HeroList = () => {
     <div>
     <h1 className={css.hero_title}>List of all your heroes</h1>
     <div className={css.hero_container}>
-        {heroes.map(hero=>(
+        {heroState.data.map(hero=>(
             <HeroCard key={hero.id} hero={hero} handleDelete={handleDelete}/>
         ))}
     </div>

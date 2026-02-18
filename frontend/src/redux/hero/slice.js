@@ -1,0 +1,33 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchHeroes } from "./operations.js";
+
+const slice = createSlice({
+    name:"hero",
+    initialState:{
+        loading:false,
+        totalPages:1,
+        error:null,
+        data:[],
+    },
+    extraReducers:(builder)=>{
+        builder.addCase(fetchHeroes.pending, (state,action)=>{
+            state.loading = true,
+            state.error=null
+        }).addCase(fetchHeroes.fulfilled, (state,action)=>{
+            state.loading = false;
+            state.error=null;
+            const { data: newHeroes, totalPages } = action.payload.data;
+            const heroFiltered = newHeroes.filter(hero => !state.data.some(existingHero => existingHero.id === hero.id))
+            state.data = [...state.data, ...heroFiltered]
+            state.totalPages = totalPages
+        }).addCase(fetchHeroes.rejected, (state,action)=>{
+            state.loading = false,
+            state.error = action.error.message
+        })
+    }
+})
+
+
+
+
+export default slice.reducer
