@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchHeroes } from "./operations.js";
+import { fetchHeroes,fetchHero } from "./operations.js";
+import { act } from "react";
 
 const slice = createSlice({
     name:"hero",
@@ -8,6 +9,7 @@ const slice = createSlice({
         totalPages:1,
         error:null,
         data:[],
+        currentHero:null,
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchHeroes.pending, (state,action)=>{
@@ -23,6 +25,16 @@ const slice = createSlice({
         }).addCase(fetchHeroes.rejected, (state,action)=>{
             state.loading = false,
             state.error = action.error.message
+        }).addCase(fetchHero.pending, (state,action)=>{
+            state.loading = true,
+            state.error=null
+        }).addCase(fetchHero.fulfilled, (state,action)=>{
+            state.loading = false,
+            state.error=false,
+            state.currentHero = action.payload.data
+        }).addCase(fetchHero.rejected, (state,action)=>{
+            state.loading = false,
+            state.error = true
         })
     }
 })

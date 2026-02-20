@@ -7,3 +7,8 @@ export const fetchHeroes = createAsyncThunk("heroes/getAllHeroes",async ({page=1
     })
     return res.data
 })
+
+export const fetchHero = createAsyncThunk("heroes/getOneHero",async (heroId)=>{
+    const res = await apiClient.get(`/${heroId}`)
+    return res.data
+})
