@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchHeroes,fetchHero } from "./operations.js";
+import { fetchHeroes,fetchHero, deleteHero } from "./operations.js";
 import { act } from "react";
 
 const slice = createSlice({
@@ -33,6 +33,16 @@ const slice = createSlice({
             state.error=false,
             state.currentHero = action.payload.data
         }).addCase(fetchHero.rejected, (state,action)=>{
+            state.loading = false,
+            state.error = true
+        }).addCase(deleteHero.pending,(state, action)=>{
+            state.loading = false,
+            state.error = false
+        }).addCase(deleteHero.fulfilled, (state,action)=>{
+            state.loading = false,
+            state.error = false,
+            state.data.filter(hero=> hero.id != action.payload.id)
+        }).addCase(deleteHero.rejected, (state,action)=>{
             state.loading = false,
             state.error = true
         })

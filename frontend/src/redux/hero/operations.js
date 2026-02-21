@@ -12,3 +12,8 @@ export const fetchHero = createAsyncThunk("heroes/getOneHero",async (heroId)=>{
     const res = await apiClient.get(`/${heroId}`)
     return res.data
 })
+
+export const deleteHero = createAsyncThunk("heroes/deleteHero",async (heroId)=>{
+    await apiClient.delete(`/${heroId}`)
+    return heroId
+})

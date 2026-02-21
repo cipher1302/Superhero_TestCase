@@ -3,7 +3,7 @@ import HeroCard from '../HeroCard/HeroCard.jsx'
 import { useState } from 'react'
 import css from '../HeroList/HeroList.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { fetchHeroes } from '../../redux/hero/operations.js';
+import { fetchHeroes, deleteHero } from '../../redux/hero/operations.js';
 
 const HeroList = () => {
      const dispatch = useDispatch()
@@ -18,14 +18,7 @@ const HeroList = () => {
 
        
     const handleDelete = (id) =>{
-         fetch(`http://localhost:3000/api/heroes/${id}`, {
-      method: 'DELETE',
-    })
-    .then(res=>{
-        if (!res.ok) throw new Error('Failed to delete')
-        setHeroes(prev => prev.filter(hero => hero.id !== id))
-    })
-    .catch(err => console.error(err))
+      dispatch(deleteHero(id))
     }
 
 
