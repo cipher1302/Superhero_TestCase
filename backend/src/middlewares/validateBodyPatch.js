@@ -4,19 +4,6 @@ export const validateBodyPatch = (model) => (req, res, next) => {
   const errors = [];
 
   try {
-    /* Transforming object into array [field, value]. 
-        Example:
-        If the user sent this type of req.body json to our server
-        {
-            "name":"Nikita"
-        }
-            we will have the array of arrays
-            [ 
-            
-            ["name","Nikita"]
-
-             ]
-        */
     Object.entries(req.body).forEach(([field, value]) => {
       const attr = model.rawAttributes[field];
       // if the field in the model does not exist just ignore it
