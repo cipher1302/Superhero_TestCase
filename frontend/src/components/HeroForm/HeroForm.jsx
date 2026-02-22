@@ -6,6 +6,8 @@ import 'izitoast/dist/css/iziToast.min.css'
 import { HeroSchema } from '../../schemas/HeroSchema.js'
 import {useForm} from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useDispatch } from 'react-redux'
+import { createHero } from '../../redux/hero/operations.js'
 
 
 
@@ -22,59 +24,47 @@ const HeroForm = () => {
     },
     resolver: yupResolver(HeroSchema),
   })
-    const fileInputRef = useRef(null)
-    const onSubmit = (values)=>{
-        const formData = new FormData()
-        formData.append('nickname', values.nickname)
-        formData.append('real_name', values.real_name)
-        formData.append('origin_description', values.origin_description)
-        formData.append('superpowers', values.superpowers)
-        formData.append('catch_phrase', values.catch_phrase)
-         if (values.images && values.images.length > 0) {
-      Array.from(values.images).forEach(file => {
-        formData.append('images', file)
-      })  
-             console.log('FormData contents:')
-for (let [key, value] of formData.entries()) {
-  console.log(key, value)
+  const fileInputRef = useRef(null)
+  const dispatch = useDispatch()
+
+const onSubmit = async (values) => {
+  const formData = new FormData()
+
+  formData.append('nickname', values.nickname)
+  formData.append('real_name', values.real_name)
+  formData.append('origin_description', values.origin_description)
+  formData.append('superpowers', values.superpowers)
+  formData.append('catch_phrase', values.catch_phrase)
+
+  if (values.images?.length) {
+    values.images.forEach(file => {
+      formData.append('images', file)
+    })
+  }
+
+  try {
+    await dispatch(createHero(formData)).unwrap()
+
+    reset()
+    setSelectedImages([])
+    if (fileInputRef.current) fileInputRef.current.value = null
+
+    iziToast.success({
+      title: 'Done',
+      message: 'Hero created successfully',
+      position: 'topRight',
+    })
+
+  } catch (error) {
+    iziToast.error({
+      title: 'Error',
+      message: error || 'Error while creating hero',
+      position: 'topRight',
+    })
+  }
 }
-    } 
-         fetch('http://localhost:3000/api/heroes/', {
-            method: 'POST',
-            body: formData,
-          })
-          .then(res => res.json())
-          .then(data => {
-            console.log('Server response:', data)
-            reset()
-            setSelectedImages([])
-            if (fileInputRef.current) fileInputRef.current.value = null
-          
-            iziToast.success({
-              title: 'Done',
-              message: 'Hero created successfully',
-              position: 'topRight',
-              timeout: 2000,
-            })
 
-            //  setTimeout(() => {
-            //       window.location.reload()
-            //     }, 2100)
-          })
-          .catch(() => {
-              iziToast.error({
-                title: 'Error',
-                message: 'Error while creating a hero',
-                position: 'topRight',
-              })
-            })
-            
-      }
-        
-
-    const [selectedImages, setSelectedImages] = useState([])
-
-   
+  const [selectedImages, setSelectedImages] = useState([])
   const handleImageChange = (e) => {
   const files = Array.from(e.target.files) 
   const updatedImages = [...selectedImages, ...files]

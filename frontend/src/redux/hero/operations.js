@@ -17,3 +17,13 @@ export const deleteHero = createAsyncThunk("heroes/deleteHero",async (heroId)=>{
     await apiClient.delete(`/${heroId}`)
     return heroId
 })
+
+export const createHero = createAsyncThunk("heroes/createHero",async(heroData)=>{
+    const res = await apiClient.post("/", heroData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+    return res.data.data
+
+})
